@@ -1,0 +1,21 @@
+version: '2'
+
+networks:
+  k6_k6:
+    external: true
+
+services:
+  cli:
+    container_name: cli
+    image: loadimpact/k6:0.26.2
+    stdin_open: true
+    tty: true
+    working_dir: /var/app
+    user: ${CURRENT_UID}
+    # command: ls
+    volumes:
+      - ../:/var/app/
+    networks:
+      - k6_k6
+    environment:
+    - TARGET_HOST=172.17.0.1:3001
